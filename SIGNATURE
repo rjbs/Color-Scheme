@@ -1,0 +1,38 @@
+This file contains message digests of all files listed in MANIFEST,
+signed via the Module::Signature module, version 0.50.
+
+To verify the content in this distribution, first make sure you have
+Module::Signature installed, then type:
+
+    % cpansign -v
+
+It will check each file's integrity, as well as the signature's
+validity.  If "==> Signature verified OK! <==" is not displayed,
+the distribution may already have been compromised, and you should
+not run its Makefile.PL or Build.PL.
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+SHA1 e5764a15d4eb471d61d483b6f53a11a24c1aebca .cvsignore
+SHA1 7fd1daf575e9d6b375fe6c60c8f1fdf509eb812f .releaserc
+SHA1 c3db1f027618e00376d3fe5238d21dda95a13a87 Changes
+SHA1 a0c39a005394c431d44cd147401d0c52be7e9c44 MANIFEST
+SHA1 421b7cbb5b81bb9c8e85d06784b1ba36b894086e META.yml
+SHA1 2444a7bc9554fc03eb1d3553d329f40686a097e0 Makefile.PL
+SHA1 41e5ab583e4fe87139b8101f05216cfc48136d7e README
+SHA1 8891ad477a574940ae0f0826cce2180ceb896d30 lib/Color/Scheme.pm
+SHA1 fba73d30aa3fbe2204e6aa9d54c04b4d608b09c6 t/0-signature.t
+SHA1 c8763ddba479d9e83abbaaeff2b953c1eaab1be3 t/00-load.t
+SHA1 ebe8feea9ac72a91aa6ebc81d5a5fa9b874e08a0 t/colors.t
+SHA1 e0d669e56d7708d6c928b6271e6e9379e648b66c t/colors2.t
+SHA1 6da39b48ce64b584e4c3274bff96fc76ff484820 t/pod-coverage.t
+SHA1 0190346d7072d458c8a10a45c19f86db641dcc48 t/pod.t
+SHA1 3d9eed52243ad73b8f87381950d79aa8545f829b t/synopsis.t
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.1 (GNU/Linux)
+
+iD8DBQFDd+7XL3e/8OaAfH4RAuJLAJoDs5l23d3pcCYwvFcXomqn7HrpyACgltgc
+zh3awpY/eO3fevZDdLAVSHY=
+=QMM1
+-----END PGP SIGNATURE-----

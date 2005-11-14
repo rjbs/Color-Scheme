@@ -1,0 +1,14 @@
+# http://module-build.sourceforge.net/META-spec.html
+#XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
+name:         Color-Scheme
+version:      1.00
+version_from: lib/Color/Scheme.pm
+installdirs:  site
+requires:
+    List::Util:                    1.14
+    POSIX:                         1.08
+    Test::Differences:             0.47
+    Test::More:                    0.54
+
+distribution_type: module
+generated_by: ExtUtils::MakeMaker version 6.17
