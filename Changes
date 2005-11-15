@@ -1,4 +1,8 @@
 Revision history for Color-Scheme
 
+1.01    Mon Nov 14 22:34:35 EST 2005
+        Changed license to same as Perl with explicit permission from Color Schemes 2 author
+        Reorganized docs a little
+
 1.00    Sun Nov 13 16:13:50 EST 2005
         First version, released on an unsuspecting world.

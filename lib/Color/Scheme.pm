@@ -7,11 +7,11 @@ use Carp;
 use List::Util qw(min max);
 use POSIX qw(floor);
 
-our $VERSION = '1.00';
+our $VERSION = '1.01';
 
 =head1 NAME
 
-Color::Scheme - Generate pleasing color schemes
+Color::Scheme - generate pleasant color schemes
 
 =cut
 
@@ -24,8 +24,8 @@ my %PRESETS = (
     default => [ -1,   -1,    1,   -0.7, 0.25, 1,   0.5,  1 ],
     pastel  => [ 0.5,  -0.9,  0.5, 0.5,  0.1,  0.9, 0.75, 0.75 ],
     soft    => [ 0.3,  -0.8,  0.3, 0.5,  0.1,  0.9, 0.5,  0.75 ],
-    hard    => [ 1,    -1,    1,   -0.6, 0.1,  1,   0.6,  1 ],
     light   => [ 0.25, 1,     0.5, 0.75, 0.1,  1,   0.5,  1 ],
+    hard    => [ 1,    -1,    1,   -0.6, 0.1,  1,   0.6,  1 ],
     pale    => [ 0.1,  -0.85, 0.1, 0.5,  0.1,  1,   0.1,  0.75 ],
 );
 
@@ -96,7 +96,7 @@ colorful results.
 
 Henceforth, paragraphs in quotes denote documentation copied from Color Schemes 2.
 
-"B<Important note:> This tool B<doesn't use the standard HSV or HSB model> (the
+"Important note: This tool I<doesn't use the standard HSV or HSB model> (the
 same HSV/HSB values ie. in Photoshop describe different colors!). The color
 wheel used here differs from the RGB spectre used on computer screens, it's
 more in accordance with the classical color theory. This is also why some
@@ -139,7 +139,7 @@ parameter. For each set of four, the first is usually the most saturated color,
 the second a darkened version, the third a pale version and fourth
 a less-pale version. 
 
-For example: With a contrast scheme, C<colors()> would return eight colors.
+For example: With a contrast scheme, L<"colors()"> would return eight colors.
 Indexes 1 and 5 could be background colors, 2 and 6 could be foreground colors.
 
 Trust me, it's much better if you check out the Color Scheme web site, whose
@@ -238,89 +238,11 @@ sub colorset {
     return \@grouped_colors;
 }
 
-=head2 add_complement( BOOLEAN )
-
-If BOOLEAN is true, an extra set of colors will be produced using the
-complement of the selected color. This is false by default.
-
-This only works with the analogic color scheme.
-
-=cut
-
-sub add_complement {
-    my ( $self, $b ) = @_;
-    croak "add_complement needs an argument" unless defined $b;
-    $self->{add_complement} = $b;
-    return $self;
-}
-
-=head2 web_safe( BOOL )
-
-Colors returned by L<"colors()"> or L<"colorset()"> will be web-safe. This is
-fale by default.
-
-=cut
-
-sub web_safe {
-    my ( $self, $b ) = @_;
-    croak "web_safe needs an argument" unless defined $b;
-    $self->{web_safe} = $b;
-    return $self;
-}
-
-=head2 distance( FLOAT )
-
-C<FLOAT> must be a value from 0 to 1. You might use
-this with the L<"triade">, L<"tetrade"> or
-L<"analogic"> color schemes.
-
-=cut
-
-sub distance {
-    my ( $self, $d ) = @_;
-    croak "distance needs an argument" unless defined $d;
-    croak "distance($d) - argument must be >= 0" if $d < 0;
-    croak "distance($d) - argument must be <= 1" if $d > 1;
-    $self->{distance} = $d;
-    return $self;
-}
-
-=head2 scheme( name )
-
-C<name> must be a valid color scheme name. See L<"COLOR SCHEMES">.
-
-=cut
-
-sub scheme {
-    my ( $self, $name ) = @_;
-    croak "scheme needs an argument"          unless defined $name;
-    croak "'$name' isn't a valid scheme name" unless exists $SCHEMES{$name};
-    $self->{scheme} = $name;
-    return $self;
-}
-
-=head2 variation( name )
-
-C<name> must be a valid color variation name. See L<"COLOR VARIATIONS">.
-
-=cut
-
-sub variation {
-    my ( $self, $v ) = @_;
-    croak "variation needs an argument"       unless defined $v;
-    croak "'$v' isn't a valid variation name" unless exists $PRESETS{$v};
-    $self->_set_variant_preset( $PRESETS{$v} );
-    return $self;
-}
-
-sub _set_variant_preset {
-    my ( $self, $p ) = @_;
-    $self->{col}->[$_]->set_variant_preset($p) for 0 .. 3;
-}
-
 =head2 from_hue( degrees )
 
 Sets the base color hue, where C<degrees> is an integer from 0 to 359.
+
+The default base hue is 0, or bright red.
 
 =cut
 
@@ -337,6 +259,8 @@ sub from_hue {
 
 Sets the base color to the given color, where C<color> is in the hexidecimal
 form RRGGBB. C<color> should not be preceeded with a hash (#).
+
+The default base color is the equivalent of #ff0000, or bright red.
 
 =cut
 
@@ -409,6 +333,90 @@ sub from_hex {
         [ $s, $v, $s, $v * 0.7, $s * 0.25, 1, $s * 0.5, 1 ] );
 
     return $self;
+}
+
+=head2 add_complement( BOOLEAN )
+
+If BOOLEAN is true, an extra set of colors will be produced using the
+complement of the selected color. 
+
+This only works with the analogic color scheme. The default is false.
+
+=cut
+
+sub add_complement {
+    my ( $self, $b ) = @_;
+    croak "add_complement needs an argument" unless defined $b;
+    $self->{add_complement} = $b;
+    return $self;
+}
+
+=head2 web_safe( BOOL )
+
+Sets whether the colors returned by L<"colors()"> or L<"colorset()"> will be
+web-safe. 
+
+The default is false.
+
+=cut
+
+sub web_safe {
+    my ( $self, $b ) = @_;
+    croak "web_safe needs an argument" unless defined $b;
+    $self->{web_safe} = $b;
+    return $self;
+}
+
+=head2 distance( FLOAT )
+
+C<FLOAT> must be a value from 0 to 1. You might use this with the L<"triade">,
+L<"tetrade"> or L<"analogic"> color schemes.
+
+The default is 0.5.
+
+=cut
+
+sub distance {
+    my ( $self, $d ) = @_;
+    croak "distance needs an argument" unless defined $d;
+    croak "distance($d) - argument must be >= 0" if $d < 0;
+    croak "distance($d) - argument must be <= 1" if $d > 1;
+    $self->{distance} = $d;
+    return $self;
+}
+
+=head2 scheme( name )
+
+C<name> must be a valid color scheme name. See L<"COLOR SCHEMES">. The default
+is L<"mono">.
+
+=cut
+
+sub scheme {
+    my ( $self, $name ) = @_;
+    croak "scheme needs an argument"          unless defined $name;
+    croak "'$name' isn't a valid scheme name" unless exists $SCHEMES{$name};
+    $self->{scheme} = $name;
+    return $self;
+}
+
+=head2 variation( name )
+
+C<name> must be a valid color variation name. See L<"COLOR VARIATIONS">. 
+
+=cut
+
+sub variation {
+    my ( $self, $v ) = @_;
+    croak "variation needs an argument"       unless defined $v;
+    croak "'$v' isn't a valid variation name" unless exists $PRESETS{$v};
+    $self->_set_variant_preset( $PRESETS{$v} );
+    return $self;
+}
+
+sub _set_variant_preset {
+    my ( $self, $p ) = @_;
+    $self->{col}->[$_]->set_variant_preset($p) for 0 .. 3;
 }
 
 package Color::Scheme::mutablecolor;
@@ -530,85 +538,125 @@ sub get_hex {
 =head1 COLOR SCHEMES
 
 The following documentation is adapated (and mostly copied verbatim) from the
-Color Schemes 2 help.
+Color Schemes 2 help.  Use one of these scheme names as an argument to the
+L<"scheme()"> method.
 
 =head2 monochromatic (or mono)
 
-Monochormatic scheme is based on only one color tint, and uses only variations
+"Monochormatic scheme is based on only one color tint, and uses only variations
 made by changing its saturation and brightness. Black and white colors are
 always added. The result is comfortable for eyes, even when using aggressive
 color. However, it's harder to find accents and highlights.
 
-The application makes only several monochromatic variants of each color. You'll
+"The application makes only several monochromatic variants of each color. You'll
 be able to make others - more or less saturated, lighter or darker.
-Monochromatic variations are made for each color in other schemes, too. 
+Monochromatic variations are made for each color in other schemes, too."
 
 =head2 contrast
 
-Base color is supplemented with its complement (color on the opposite side of
+"Base color is supplemented with its complement (color on the opposite side of
 the wheel). One warm and one cold color is always created - we have to
 consider, which one will be dominant, and if the result should look warm, or
 cold. Suitable monochromatic variations of this two colors may be added to the
-scheme. 
+scheme."
 
 =head2 triade
 
-Base color is supplemented with two colors, placed identically on both sides of
-its complement. Unlike the "sharp" contrast, this scheme is often more
+"Base color is supplemented with two colors, placed identically on both sides of
+its complement. Unlike the 'sharp' contrast, this scheme is often more
 comfortable for the eyes, it's softer, and has more space for balancing warm
 and cold colors.
 
-You can use the L<"distance"> method to set the distance of these colors
+"You can use the L<"distance()"> method to set the distance of these colors
 from the base color complement. The less the value is, the closer the colors
 are to the contrast color, and are more similar. The best value is between 0.25
 and 0.5. Higher values aren't too suitable - except the shift by 60°, which
 makes another color scheme, the triade:
 
-The triade is made by three colors evenly distributed on the thirds of the
+"The triade is made by three colors evenly distributed on the thirds of the
 color wheel (by 120 degrees). The triade-schemes are vibrating, full of energy,
 and have large space to make contrasts, accents and to balance warm and cold
-colors. You can make the triade in the "soft contrast" scheme setting the
-distance to the maximal value, 1.
+colors. You can make the triade in the 'soft contrast' scheme setting the
+distance to the maximal value, 1."
 
 =head2 tetrade
 
-This scheme, also known as "double-contrast," is made by a pair of colors and
+"This scheme, also known as 'double-contrast,' is made by a pair of colors and
 their complements. It's based on the tetrade - the foursome of colors evenly
 distributed on the fourths of the color wheel (by 90 degreees). The tetrade is
 very aggressive color scheme, requiring very good planning and very sensitive
 approach to relations of these colors.
 
-Less distance between two base colors causes less tension in the result.
-However, this scheme is always more "nervous" and "action" than other schemes.
+"Less distance between two base colors causes less tension in the result.
+However, this scheme is always more 'nervous' and 'action' than other schemes.
 While working with it, we have to take care especially of relations between one
 color and the complement of its adjacent color - in case of the tetrade
-(maximum distance 1), good feeling and very sensitive approach are necessary.
+(maximum distance 1), good feeling and very sensitive approach are necessary."
 
 =head2 analogic
 
-This scheme is made by base color and its adjacent colors - two colors
+"This scheme is made by base color and its adjacent colors - two colors
 identically on both sides. It always looks very elegantly and clear, the result
 has less tension and it's uniformly warm, or cold. If a color on the warm-cold
-border is chosen, the color with opposite "temperature" may be used for
+border is chosen, the color with opposite 'temperature' may be used for
 accenting the other two colors.
 
-You can set the distance of adjacent colors by using L<"setDistance">.  Values
+"You can set the distance of adjacent colors by using L<"distance()">.  Values
 between 0.25 and 0.5 (15-30 degrees on the wheel) are optimal. You can also add
 the contrast color; the scheme is then supplemented with the complement of the
 base color. It must be treated only as a complement - it adds tension to the
 palette, and it's too aggressive when overused. However, used in details and as
-accent of main colors, it can be very effective and elegant.
+accent of main colors, it can be very effective and elegant."
+
+=head1 COLOR VARIATIONS
+
+"Each of colors in displayed scheme has four variations. These are colors of
+the same hue, but they differ in the saturation and brightness. ... The very
+first variation ... is the base variation, which determines the look of the
+scheme. The other three variations are just additional. Iff the scheme is made
+by less than four colors, the unused place is used to display variations (or
+the complement) of the base color."
+
+Use one of these variation names as an argument to the L<"variation()"> method.
+
+=head2 default
+
+The default preset. Generally pretty nice.
+
+=head2 pastel
+
+Softer colors with added whiteness.
+
+=head2 soft
+
+Darker pastel colors.
+
+=head2 light
+
+Very light, almost washed-out colors.
+
+=head2 hard
+
+Deeper, more-saturated colors.
+
+=head2 pale
+
+Greyer, less-saturated colors.
 
 =head1 AUTHOR
 
-Color Schemes 2 and documentation are copyright pixy L<http://www.pixy.cz/>
+Color Schemes 2, its documentation and original JavaScript code are copyright
+pixy L<http://www.wellstyled.com/>
 
-This JSAN module was created by Ian Langworth <ian.langworth@gmail.com>
+This Per; module was created by Ian Langworth <ian.langworth@gmail.com>
 
-=head1 COPYRIGHT
+=head1 COPYRIGHT & LICENSE
 
-This product is distributed under the Creative Commons BY-NC-SA licence.
-License for commercial use is not possible.
+Copyright (C) 2005 Ian Langworth
+
+This license has been granted explictly by the author of Color Schemes 2. This
+program is free software; you can redistribute it and/or modify it under the
+same terms as Perl itself. 
 
 =cut
 
