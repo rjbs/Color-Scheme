@@ -1,5 +1,8 @@
 Revision history for Color-Scheme
 
+1.02    Sat Jan 28 20:06:21 EST 2006
+        Fixed from_hue bug thanks to Christoffer Vig
+
 1.01    Mon Nov 14 22:34:35 EST 2005
         Changed license to same as Perl with explicit permission from Color Schemes 2 author
         Reorganized docs a little

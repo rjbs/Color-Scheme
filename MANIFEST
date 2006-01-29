@@ -7,10 +7,11 @@ MANIFEST			This list of files
 META.yml
 README
 SIGNATURE
-t/00-load.t
 t/0-signature.t
+t/00-load.t
 t/colors.t
 t/colors2.t
 t/pod-coverage.t
 t/pod.t
 t/synopsis.t
+t/three-sixty.t

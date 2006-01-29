@@ -7,7 +7,7 @@ use Carp;
 use List::Util qw(min max);
 use POSIX qw(floor);
 
-our $VERSION = '1.01';
+our $VERSION = '1.02';
 
 =head1 NAME
 
@@ -240,7 +240,8 @@ sub colorset {
 
 =head2 from_hue( degrees )
 
-Sets the base color hue, where C<degrees> is an integer from 0 to 359.
+Sets the base color hue, where C<degrees> is an integer. (Values greater than
+359 and less than 0 wrap back around the wheel.)
 
 The default base hue is 0, or bright red.
 
@@ -249,8 +250,6 @@ The default base hue is 0, or bright red.
 sub from_hue {
     my ( $self, $h ) = @_;
     croak "variation needs an argument" unless defined $h;
-    croak "from_hue($h) - argument must be >= 0"   if $h < 0;
-    croak "from_hue($h) - argument must be <= 359" if $h > 359;
     $self->{col}->[0]->set_hue($h);
     return $self;
 }
@@ -291,7 +290,7 @@ sub from_hex {
             : ( $g == $max ) ? ( 2 + ( $b - $r ) / $d )
             : ( 4 + ( $r - $g ) / $d );
         $h *= 60;
-        $h += 360 if $h < 0;
+        $h %= 360;
 
         return ( $h, $s, $v );
     };
@@ -323,8 +322,7 @@ sub from_hex {
 
     my $k = ( $h2 != $h1 ) ? ( $h0 - $h1 ) / ( $h2 - $h1 ) : 0;
     $h = _round( $i1 + $k * ( $i2 - $i1 ) );
-    $h -= 360 if $h > 360;
-    $h += 360 if $h < 0;
+    $h %= 360;
     $s = $hsv[1];
     $v = $hsv[2];
 
