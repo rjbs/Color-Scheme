@@ -1,5 +1,8 @@
 Revision history for Color-Scheme
 
+1.03    Mon Jun 18 17:56:43 EDT 2012
+        stop the pod tests from breaking install
+
 1.02    Sat Jan 28 20:06:21 EST 2006
         Fixed from_hue bug thanks to Christoffer Vig
 
