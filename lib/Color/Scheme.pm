@@ -7,7 +7,7 @@ use Carp;
 use List::Util qw(min max);
 use POSIX qw(floor);
 
-our $VERSION = '1.02';
+our $VERSION = '1.03';
 
 =head1 NAME
 
@@ -417,7 +417,8 @@ sub _set_variant_preset {
     $self->{col}->[$_]->set_variant_preset($p) for 0 .. 3;
 }
 
-package Color::Scheme::mutablecolor;
+package
+  Color::Scheme::mutablecolor;
 
 use Carp;
 use List::Util qw(min max);
@@ -646,7 +647,7 @@ Greyer, less-saturated colors.
 Color Schemes 2, its documentation and original JavaScript code are copyright
 pixy L<http://www.wellstyled.com/>
 
-This Per; module was created by Ian Langworth <ian.langworth@gmail.com>
+This Perl module was created by Ian Langworth <ian.langworth@gmail.com>
 
 =head1 COPYRIGHT & LICENSE
 
