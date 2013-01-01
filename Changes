@@ -1,5 +1,8 @@
 Revision history for Color-Scheme
 
+1.04    Tue Jan  1 15:14:44 EST 2013
+        fix some documentation typos (thanks, Xavier Guimard)
+
 1.03    Mon Jun 18 17:56:43 EDT 2012
         stop the pod tests from breaking install
 

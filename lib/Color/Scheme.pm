@@ -7,7 +7,7 @@ use Carp;
 use List::Util qw(min max);
 use POSIX qw(floor);
 
-our $VERSION = '1.03';
+our $VERSION = '1.04';
 
 =head1 NAME
 
@@ -257,7 +257,7 @@ sub from_hue {
 =head2 from_hex( color )
 
 Sets the base color to the given color, where C<color> is in the hexidecimal
-form RRGGBB. C<color> should not be preceeded with a hash (#).
+form RRGGBB. C<color> should not be preceded with a hash (#).
 
 The default base color is the equivalent of #ff0000, or bright red.
 
@@ -653,7 +653,7 @@ This Perl module was created by Ian Langworth <ian.langworth@gmail.com>
 
 Copyright (C) 2005 Ian Langworth
 
-This license has been granted explictly by the author of Color Schemes 2. This
+This license has been granted explicitly by the author of Color Schemes 2. This
 program is free software; you can redistribute it and/or modify it under the
 same terms as Perl itself. 
 
