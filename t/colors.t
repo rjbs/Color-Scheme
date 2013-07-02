@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 use Test::More tests => 5;
-use Test::Differences;
+use Test::Differences 0.47;
 use Color::Scheme;
 
 {

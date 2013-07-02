@@ -1,19 +1,11 @@
-package Color::Scheme;
-
-use warnings;
 use strict;
+use warnings;
+package Color::Scheme;
+# ABSTRACT: generate pleasant color schemes
 
 use Carp;
-use List::Util qw(min max);
-use POSIX qw(floor);
-
-our $VERSION = '1.04';
-
-=head1 NAME
-
-Color::Scheme - generate pleasant color schemes
-
-=cut
+use List::Util 1.14 qw(min max);
+use POSIX 1.08 qw(floor);
 
 my %SCHEMES = ( map { $_, 1 }
         qw( mono monochromatic contrast triade tetrade analogic ) );
@@ -107,9 +99,7 @@ causes incompatibility in color conversions from RGB-values. Therefore, the RGB
 input (eg. the HTML hex values like #F854A9) is not exact, the conversion is
 rough and sometimes may produce slightly different color."
 
-=head1 METHODS
-
-=head2 new()
+=method new
 
 The C<new> method will return a new C<Color::Scheme> object.
 
@@ -131,7 +121,7 @@ sub new {
     }, $class;
 }
 
-=head2 colors()
+=method colors
 
 Returns an array of 4, 8, 12 or 16 colors in C<RRGGBB> hexidecimal notation
 (without a leading "#") depending on the color scheme and addComplement
@@ -207,7 +197,7 @@ sub colors {
     return @output;
 }
 
-=head2 colorset()
+=method colorset
 
 Returns a list of lists of the colors in groups of four. This method simply
 allows you to reference a color in the scheme by its group isntead of its
@@ -238,7 +228,9 @@ sub colorset {
     return \@grouped_colors;
 }
 
-=head2 from_hue( degrees )
+=method from_hue
+
+  $scheme->from_hue( $degrees )
 
 Sets the base color hue, where C<degrees> is an integer. (Values greater than
 359 and less than 0 wrap back around the wheel.)
@@ -254,7 +246,9 @@ sub from_hue {
     return $self;
 }
 
-=head2 from_hex( color )
+=method from_hex
+
+  $scheme->from_hex( $color )
 
 Sets the base color to the given color, where C<color> is in the hexidecimal
 form RRGGBB. C<color> should not be preceded with a hash (#).
@@ -333,10 +327,12 @@ sub from_hex {
     return $self;
 }
 
-=head2 add_complement( BOOLEAN )
+=method add_complement
 
-If BOOLEAN is true, an extra set of colors will be produced using the
-complement of the selected color. 
+  $scheme->add_complement( $bool )
+
+If C<$bool> is true, an extra set of colors will be produced using the
+complement of the selected color.
 
 This only works with the analogic color scheme. The default is false.
 
@@ -349,7 +345,9 @@ sub add_complement {
     return $self;
 }
 
-=head2 web_safe( BOOL )
+=method web_safe
+
+  $scheme->web_safe( $bool )
 
 Sets whether the colors returned by L<"colors()"> or L<"colorset()"> will be
 web-safe. 
@@ -365,9 +363,11 @@ sub web_safe {
     return $self;
 }
 
-=head2 distance( FLOAT )
+=method distance
 
-C<FLOAT> must be a value from 0 to 1. You might use this with the L<"triade">,
+  $scheme->distance( $float )
+
+C<$float> must be a value from 0 to 1. You might use this with the L<"triade">,
 L<"tetrade"> or L<"analogic"> color schemes.
 
 The default is 0.5.
@@ -383,9 +383,11 @@ sub distance {
     return $self;
 }
 
-=head2 scheme( name )
+=method scheme
 
-C<name> must be a valid color scheme name. See L<"COLOR SCHEMES">. The default
+  $scheme->scheme( $name )
+
+C<$name> must be a valid color scheme name. See L<"COLOR SCHEMES">. The default
 is L<"mono">.
 
 =cut
@@ -398,9 +400,11 @@ sub scheme {
     return $self;
 }
 
-=head2 variation( name )
+=method variation
 
-C<name> must be a valid color variation name. See L<"COLOR VARIATIONS">. 
+  $scheme->variation( $name )
+
+C<$name> must be a valid color variation name. See L<"COLOR VARIATIONS">. 
 
 =cut
 
@@ -642,20 +646,13 @@ Deeper, more-saturated colors.
 
 Greyer, less-saturated colors.
 
-=head1 AUTHOR
+=head1 CREDIT
 
 Color Schemes 2, its documentation and original JavaScript code are copyright
 pixy L<http://www.wellstyled.com/>
 
-This Perl module was created by Ian Langworth <ian.langworth@gmail.com>
-
-=head1 COPYRIGHT & LICENSE
-
-Copyright (C) 2005 Ian Langworth
-
-This license has been granted explicitly by the author of Color Schemes 2. This
-program is free software; you can redistribute it and/or modify it under the
-same terms as Perl itself. 
+The author has explicitly granted license for this distribution of code to be
+redistribute as specified in the L<COPYRIGHT AND LICENSE> section.
 
 =cut
 

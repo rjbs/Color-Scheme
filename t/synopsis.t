@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 use Test::More tests => 8;
-use Test::Differences;
+use Test::Differences 0.47;
 use Color::Scheme;
 
 my @names = qw( scheme1 scheme2 );
