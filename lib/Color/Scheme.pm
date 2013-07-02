@@ -573,8 +573,8 @@ and cold colors.
 "You can use the L<"distance()"> method to set the distance of these colors
 from the base color complement. The less the value is, the closer the colors
 are to the contrast color, and are more similar. The best value is between 0.25
-and 0.5. Higher values aren't too suitable - except the shift by 60°, which
-makes another color scheme, the triade:
+and 0.5. Higher values aren't too suitable - except the shift by 60E<0x00B0>,
+which makes another color scheme, the triade:
 
 "The triade is made by three colors evenly distributed on the thirds of the
 color wheel (by 120 degrees). The triade-schemes are vibrating, full of energy,
