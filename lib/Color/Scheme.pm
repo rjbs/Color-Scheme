@@ -58,7 +58,7 @@ sub _round { floor( 0.5 + shift ) }
 
     my $scheme = Color::Scheme->new
         ->from_hex('ff0000') # or ->from_hue(0)
-        ->scheme('analog')
+        ->scheme('analogic')
         ->distance(0.3)
         ->add_complement(1)
         ->variation('pastel')
