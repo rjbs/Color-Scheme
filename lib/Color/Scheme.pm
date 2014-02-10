@@ -82,7 +82,7 @@ sub _round { floor( 0.5 + shift ) }
 This module is a Perl implementation of Color Schemes
 2 (L<http://wellstyled.com/tools/colorscheme2/>), a color scheme generator.
 Start by visitng the Color Schemes 2 web site and playing with the colors.
-When you want to generate those schemes on the fly, begin using this modoule.
+When you want to generate those schemes on the fly, begin using this module.
 The descriptions herein don't make too much sense without actually seeing the
 colorful results.
 
