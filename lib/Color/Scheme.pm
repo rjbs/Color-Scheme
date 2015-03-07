@@ -259,6 +259,9 @@ The default base color is the equivalent of #ff0000, or bright red.
 
 sub from_hex {
     my ( $self, $hex ) = @_;
+
+    use bignum;
+
     croak "from_hex needs an argument" unless defined $hex;
     croak "from_hex($hex) - argument must be in the form of RRGGBB"
         unless $hex =~ / ^ ( [0-9A-F]{2} ) {3} $ /ismx;
@@ -462,6 +465,8 @@ sub get_hue {
 sub set_hue {
     my ( $self, $h ) = @_;
 
+    use bignum;
+
     my $avrg = sub {
         my ( $a, $b, $k ) = @_;
         return $a + _round( ( $b - $a ) * $k );
@@ -516,6 +521,8 @@ sub set_variant_preset {
 
 sub get_hex {
     my ( $self, $web_safe, $variation ) = @_;
+
+    use bignum;
 
     my $max = max( map { $self->{"base_$_"} } qw( red green blue ) );
     my $min = min( map { $self->{"base_$_"} } qw( red green blue ) );
