@@ -520,9 +520,9 @@ sub get_hex {
     my $max = max( map { $self->{"base_$_"} } qw( red green blue ) );
     my $min = min( map { $self->{"base_$_"} } qw( red green blue ) );
 
-    my $v = (
-        $variation < 0 ? $self->{base_value} : $self->get_value($variation) )
-        * 255;
+    my $v = $variation < 0 ? $self->{base_value} : $self->get_value($variation)
+          * 255;
+
     my $s = (
           $variation < 0
         ? $self->{base_saturation}
@@ -530,9 +530,14 @@ sub get_hex {
     );
     my $k = $max > 0 ? $v / $max : 0;
 
+    my @RGB = map {
+        min( 255, $v - ( $v - $self->{"base_$_"} * $k ) * $s )
+    } qw( red green blue );
+
     my @rgb = map {
         min( 255, _round( $v - ( $v - $self->{"base_$_"} * $k ) * $s ) )
     } qw( red green blue );
+    warn sprintf "@rgb [@RGB] <%g %g %g>\n", $v, $k, $s;
     @rgb = map { _round( $_ / 51 ) * 51 } @rgb if $web_safe;
 
     return sprintf( '%02x' x @rgb, @rgb );
