@@ -1,6 +1,8 @@
 Revision history for Color-Scheme
 
 {{$NEXT}}
+        - allow for single-bit imprecision in color parts, as perl 5.21.x
+          has changed its rounding in some cases (with long doubles)
 
 1.06      2014-02-13 14:31:19-05:00 America/New_York
           typo fixes (thanks, Yanick!)
