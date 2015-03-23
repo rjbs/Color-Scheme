@@ -2,9 +2,10 @@
 use strict;
 use warnings;
 
-use Test::More tests => 5;
-use Test::Differences 0.47;
+use Test::More;
 use Color::Scheme;
+
+use t::lib::ColorTest;
 
 {
     my $c     = Color::Scheme->new->from_hex('ff9900')->distance(0.5);
@@ -45,7 +46,12 @@ use Color::Scheme;
     );
 
     while ( my ( $scheme, $colors ) = each %tests ) {
-        eq_or_diff [ $c->scheme($scheme)->colors ], $colors, "$scheme scheme";
+        color_test(
+            [ $c->scheme($scheme)->colors ],
+            $colors,
+            "$scheme scheme",
+        );
     }
 }
 
+done_testing;

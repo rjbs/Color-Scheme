@@ -4,8 +4,9 @@ use strict;
 use warnings;
 
 use Test::More tests => 8;
-use Test::Differences 0.47;
 use Color::Scheme;
+
+use t::lib::ColorTest;
 
 my @names = qw( scheme1 scheme2 );
 
@@ -20,7 +21,7 @@ foreach my $scheme ( $scheme1, $scheme2 ) {
     my $name = shift @names;
 
     my @list = $scheme->colors();
-    eq_or_diff(
+    color_test(
         \@list,
         [   qw(
                 ff6666 993333 ffcccc cc3333
@@ -32,16 +33,20 @@ foreach my $scheme ( $scheme1, $scheme2 ) {
         "colors() for $name",
     );
 
-    my $set = $scheme->colorset();
-    eq_or_diff(
-        $set,
-        [   [qw( ff6666 993333 ffcccc cc3333)],
-            [qw( ff9966 996633 ffcccc cc6633)],
-            [qw( cc6699 993366 ffcccc cc3399)],
-            [qw( 66cc66 339933 ccffcc 33cc33)],
-        ],
-        "colorset() for $name",
-    );
+    subtest "colorset output structure" => sub {;
+        my $set = $scheme->colorset();
+        is(@$set, 4, "four-length array");
+        ok(
+            (4 == grep { @$_ == 4 } @$set),
+            "...of four-length arrays",
+        );
+
+        color_test(
+            [ map { @$_ } @$set ],
+            \@list,
+            "colorset() for $name",
+        );
+    };
 
     # the docs for colorset() shouldn't lie
     is( ( $scheme->colors )[1],
